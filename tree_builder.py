@@ -7,8 +7,10 @@ class EmployeeNode:
         right (EmployeeNode): The right child node, representing the right subordinate.
     '''
 
-    # Delete this line and implement the class below
-    pass
+    def __init__(self, name):
+        self.name = name
+        self.left = None
+        self.right = None
 
 class TeamTree:
     '''
@@ -21,11 +23,65 @@ class TeamTree:
 
     '''
     
-    # Delete this line and implement the class below
-    pass
+    def __init__(self):
+        self.root = None
 
-# Test your code here
+    def insert(self, manager_name, employee_name, side, current_node=None):
+        if self.root is None:
+            print("Error: Add a team lead before adding employees.")
+            return
 
+        if side not in ("left", "right"):
+            print("Error: Side must be 'left' or 'right'.")
+            return
+
+        if current_node is None:
+            current_node = self.root
+
+        if current_node.name == manager_name:
+            if side == "left":
+                if current_node.left is None:
+                    current_node.left = EmployeeNode(employee_name)
+                else:
+                    print(f"Error: {manager_name} already has a left report.")
+                    return True
+            else:
+                if current_node.right is None:
+                    current_node.right = EmployeeNode(employee_name)
+                else:
+                    print(f"Error: {manager_name} already has a right report.")
+                    return True
+
+            print(f"{employee_name} added under {manager_name} on the {side}.")
+            return True
+
+        if current_node.left is not None:
+            if self.insert(manager_name, employee_name, side, current_node.left):
+                return True
+
+        if current_node.right is not None:
+            if self.insert(manager_name, employee_name, side, current_node.right):
+                return True
+
+        if current_node is self.root:
+            print(f"Error: Manager '{manager_name}' was not found.")
+
+        return False
+    def print_tree(self, node=None, level=0):
+        if node is None:
+            if level == 0:
+                node = self.root
+            else:
+                return
+
+        if node is None:
+            print("The company directory is empty.")
+            return
+
+        print("  " * level + "- " + node.name)
+
+        self.print_tree(node.left, level + 1)
+        self.print_tree(node.right, level + 1)
 
 
 
@@ -70,3 +126,6 @@ def company_directory():
             break
         else:
             print("❌ Invalid option. Try again.")
+
+if __name__ == "__main__":
+    company_directory()

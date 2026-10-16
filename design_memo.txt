@@ -1,0 +1,24 @@
+Design Memo: Company Directory Tree
+
+    Recursive insertion allows the program to find a manager in the company 
+directory and add an employee in the correct spot. The search starts at the root, 
+representing the team lead. If the manager's name matches the current node, the 
+program checks whether the left or right position is available. If the manager 
+is not found at that node, the method calls itself to search through the left and 
+right branches. This makes it possible to add employees at different levels of the 
+company instead of only adding them directly under the team lead.
+
+    One challenging part of this was making sure the program added employees to the 
+correct manager without replacing someone who was already there. Since each manager 
+can have only one left report and one right report, the program checks whether the 
+selected position is occupied before adding an employee. I also had to account for 
+situations where someone tries to add an employee under a manager who does not exist.
+The program displays error messages if the manager cannot be found, the selected 
+position is already taken, or an invalid side is entered.
+
+    Trees can be useful in real-world situations where information is organized into 
+levels. A company directory is a good example since employees report to managers,
+who may report to other managers. Trees are also used to organize computer files
+and folders and represent the structure of webpages. Compared with keeping 
+everything in one flat list, a tree makes it easier to see how different items 
+are connected and understand the relationships between them.
